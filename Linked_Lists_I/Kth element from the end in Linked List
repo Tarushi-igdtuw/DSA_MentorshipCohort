@@ -1,0 +1,17 @@
+public static int kthFromEnd(int k,Node head) { (slow and fast 2 pointer approach)
+      Node slow=head;
+      Node fast=head;
+      int i=0;
+      for(;i<k && fast!=null;i++) { 
+         fast=fast.next;
+      }
+      if(fast==null && i!=k) {     
+         System.out.println("Invalid");
+         return -1;
+      }
+      while(fast!=null) { 
+         fast=fast.next;
+         slow=slow.next;
+      }
+      return slow.val;
+}
