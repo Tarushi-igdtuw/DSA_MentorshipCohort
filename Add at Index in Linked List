@@ -1,0 +1,30 @@
+public static Node insertAtIndex(int elt,int index,Node head) {
+      if(index<0) {
+         return head;
+      }
+      else if(index==0) {
+         head=insertAtBeg(elt,head);
+         return head;
+      }
+      else {
+         Node prev=null;
+         Node temp=head;
+         while(temp!=null && index!=0) {
+            prev=temp;
+            temp=temp.next;
+            index--;
+         }
+         if(temp==null) {
+            if(index==0){  // insert at last
+               Node nnode=new Node(elt);
+               prev.next=nnode;
+            }
+         }
+         else {
+            Node nnode=new Node(elt); // insert in between
+            nnode.next=temp;
+            prev.next=nnode;
+         }
+         return head;
+      }
+ }
