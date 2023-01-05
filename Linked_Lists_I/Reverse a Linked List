@@ -1,0 +1,11 @@
+public static Node reverseLL(Node head) { //Q4
+      Node prev=null;
+      Node nnext=null;
+      while(head!=null) {
+         nnext=head.next;
+         head.next=prev;
+         prev=head;
+         head=nnext;
+      }
+      return prev;
+}
