@@ -1,0 +1,12 @@
+public static Node mergeSortLL(Node head) { //Q8
+      if(head==null || head.next==null) {
+         return head;
+      }
+      Node a=middleLL(head);
+      Node b=a.next;
+      a.next=null;
+      Node n1=mergeSortLL(head);
+      Node n2=mergeSortLL(b);
+      Node n=mergeTwoLists(n1,n2);
+      return n;
+}
