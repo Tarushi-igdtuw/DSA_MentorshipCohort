@@ -1,0 +1,19 @@
+public static boolean isPalindrome(Node head) { //Q10
+      if(head==null){
+          return true;
+      }
+      Node a=middleLL(head);
+      Node b=reverseLL(a.next);
+      Node p1=head;
+      Node p2=b;
+      boolean result=true;
+      while(result && p2!=null){
+          if(p1.val!=p2.val){
+             result=false;
+          }
+          p1=p1.next;
+          p2=p2.next;
+      }
+      a.next=reverseLL(b);
+      return result;
+}
