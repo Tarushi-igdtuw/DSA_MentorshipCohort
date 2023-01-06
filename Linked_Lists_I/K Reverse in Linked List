@@ -1,0 +1,39 @@
+public static Node kReverseLL(Node head,int k) { // Reverse a Linked List in groups of given size k
+      Node curr=head;
+      Node tail=head;
+      boolean isFirst=true;
+      while(curr!=null) {
+         Node prev=null;
+         Node tailPos=curr;
+         int c=0;
+         while(curr!=null && c<k) {
+            Node temp=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=temp;
+            c++;
+         }
+         //if you don't want to reverse elts which hv size<k then only include this//
+         if(curr==null && c!=k) {
+            tailPos=null;
+            while(prev!=null) {
+               Node temp=prev.next;
+               prev.next=tailPos;
+               tailPos=prev;
+               prev=temp;
+            }
+            tail.next=tailPos;
+            return head;
+         }
+         //----------------------------------------------------------------------//
+         if(isFirst) {
+            head=prev;
+            isFirst=false;
+         }
+         else {
+            tail.next=prev;
+            tail=tailPos;
+         }
+      }
+      return head;
+}
