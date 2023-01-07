@@ -1,0 +1,51 @@
+public static int getSize(Node head) { // for size of LL
+      Node temp=head;
+      int size=0;
+      while(temp!=null) {
+         temp=temp.next;
+         size++;
+      }
+      return size;
+}
+   
+public static int add2LLHelper(Node head1,int s1,Node head2,int s2,Q1 head) { // for carry 
+      if(s1==0 && s2==0) {
+         return 0;
+      }
+      int data=0;
+      if(s1>s2) {
+         int oc=add2LLHelper(head1.next,s1-1,head2,s2,head);
+         data=head1.val+oc;
+      }
+      else if(s2>s1) {
+         int oc=add2LLHelper(head1,s1,head2.next,s2-1,head);
+         data=head2.val+oc;
+      }
+      else {
+         int oc=add2LLHelper(head1.next,s1-1,head2.next,s2-1,head);
+         data=head1.val+head2.val+oc;
+      }
+      int val=data %10;
+      int nc=data/10;
+      head.result=insertAtBeg(val,head.result);
+      return nc;
+}
+   
+Node result;
+   
+public static Node add2LL(Node head1,Node head2) { 
+      if(head1==null) {
+         return head2;
+      }
+      if(head2==null) {
+         return head1;
+      }
+      Q1 obj=new Q1(); 
+      int a=getSize(head1);
+      int b=getSize(head2);
+      int oc=add2LLHelper(head1,a,head2,b,obj);
+      if(oc!=0) {
+         obj.result=insertAtBeg(oc,obj.result);
+      }
+      return obj.result;
+}
