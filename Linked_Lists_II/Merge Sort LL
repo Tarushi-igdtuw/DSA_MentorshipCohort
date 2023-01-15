@@ -1,0 +1,31 @@
+class Solution {
+    public static ListNode middleLL(ListNode head) { 
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast!=null && fast.next!=null && fast.next.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return slow;
+    }
+    public static ListNode mergeTwoLists(ListNode l1,ListNode l2){ 
+        if(l1 == null) return l2;
+        if(l2 == null) return l1;
+        if(l1.val < l2.val){
+            l1.next = mergeTwoLists(l1.next, l2);
+            return l1;
+        } else{
+            l2.next = mergeTwoLists(l1, l2.next);
+            return l2;
+        }
+    }
+    public ListNode sortList(ListNode head) {
+        if(head==null || head.next==null){return head;}
+        ListNode a=middleLL(head);
+        ListNode b=a.next;
+        a.next=null;
+        ListNode head1=sortList(head);
+        ListNode head2=sortList(b);
+        return mergeTwoLists(head1,head2);
+    }
+}
