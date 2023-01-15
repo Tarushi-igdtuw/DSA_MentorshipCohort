@@ -1,18 +1,24 @@
+//even numbers appear before all the odd numbers in the modified list 
 class Solution {
     public ListNode oddEvenList(ListNode head) {
-        if(head==null){
-            return head;
+        ListNode dummyE=new ListNode(-1);
+        ListNode dummyO=new ListNode(-1);
+        ListNode evenT=dummyE;
+        ListNode oddT=dummyO;
+        ListNode curr=head;
+        while(curr!=null){
+            if(curr.val%2==0){  //even
+                evenT.next=curr;
+                evenT=evenT.next;
+            }
+            else{                //odd
+                oddT.next=curr;
+                oddT=oddT.next;
+            }
+            curr=curr.next;
         }
-        ListNode oddT=head;
-        ListNode evenH=head.next;
-        ListNode evenT=head.next;
-        while(oddT.next!=null && evenT.next!=null){
-            oddT.next=oddT.next.next;
-            evenT.next=evenT.next.next;
-            oddT=oddT.next;
-            evenT=evenT.next;
-        }
-        oddT.next=evenH;
-        return head;
+        evenT.next=dummyO.next;
+        oddT.next=null;      // imp step otherwise cycle will form when list ends with even number
+        return dummyE.next;
     }
 }
