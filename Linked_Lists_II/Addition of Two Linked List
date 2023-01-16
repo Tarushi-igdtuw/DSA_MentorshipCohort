@@ -1,0 +1,95 @@
+// Method I
+class Solution {
+    public static ListNode reverseLL(ListNode head) { 
+        ListNode prev=null;
+        while(head!=null) {
+            ListNode nnext=head.next;
+            head.next=prev;
+            prev=head;
+            head=nnext;
+        }
+        return prev;
+    }
+    public static ListNode insertAtBeg(int elt,ListNode head) { 
+        ListNode nnode=new ListNode(elt); 
+        if(head==null) {     
+            head=nnode;
+        }
+        else {
+            nnode.next=head; 
+            head=nnode;
+        }
+        return head;
+    }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode n1=reverseLL(l1);
+        ListNode n2=reverseLL(l2);
+        ListNode result=null;
+        int carry=0;
+        while(n1!=null || n2!=null || carry!=0){
+            int data=(n1!=null ? n1.val:0)+(n2!=null ? n2.val:0)+carry;
+            result=insertAtBeg(data%10,result);
+            carry=data/10;
+            n1=n1!=null?n1.next:n1;
+            n2=n2!=null?n2.next:n2;
+        }
+        return result;
+    }
+}
+
+// Method II
+class Solution {
+    public static int getSize(ListNode head) { // for size of LL
+        ListNode temp=head;
+        int size=0;
+        while(temp!=null) {
+            temp=temp.next;
+            size++;
+        }
+        return size;
+    }
+    public static ListNode insertAtBeg(int elt,ListNode head) { 
+        ListNode nnode=new ListNode(elt); 
+        if(head==null) {     
+            head=nnode;
+        }
+        else {
+            nnode.next=head; 
+            head=nnode;
+        }
+        return head;
+    }
+    ListNode result=null;
+    public static int add2LLHelper(ListNode head1,int s1,ListNode head2,int s2,Solution head) { 
+        if(s1==0 && s2==0) {
+            return 0;
+        }
+        int data=0;
+        if(s1>s2) {
+            int oc=add2LLHelper(head1.next,s1-1,head2,s2,head); //oc-->old carry
+            data=head1.val+oc;
+        }
+        else if(s2>s1) {
+            int oc=add2LLHelper(head1,s1,head2.next,s2-1,head);
+            data=head2.val+oc;
+        }
+        else {
+            int oc=add2LLHelper(head1.next,s1-1,head2.next,s2-1,head);
+            data=head1.val+head2.val+oc;
+        }
+        int val=data %10;
+        int nc=data/10;  // nc->new carry
+        head.result=insertAtBeg(val,head.result);
+        return nc;
+    }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Solution obj=new Solution();
+        int a=getSize(l1);
+        int b=getSize(l2);
+        int oc=add2LLHelper(l1,a,l2,b,obj);
+        if(oc!=0) {
+            obj.result=insertAtBeg(oc,obj.result);
+        }
+        return obj.result; 
+    }
+}
