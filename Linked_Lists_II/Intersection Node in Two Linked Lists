@@ -1,0 +1,36 @@
+// floyd cycle detection 
+public class Solution {
+    public static ListNode getStartNodeOfCycle(ListNode head) { 
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast){
+                break;
+            }
+        } 
+        if(slow!=fast){   // cycle don't exist
+            return null;
+        }
+        else{
+            slow=head;
+            while(slow!=fast){
+                slow=slow.next;
+                fast=fast.next;
+            }
+            return slow;
+        }
+    }
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null || headB==null){return null;}
+        ListNode temp=headA;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        temp.next=headB;
+        ListNode ans=getStartNodeOfCycle(headA);
+        temp.next=null;
+        return ans;
+    }
+}
