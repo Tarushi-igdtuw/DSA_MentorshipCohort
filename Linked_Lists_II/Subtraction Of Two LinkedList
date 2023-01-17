@@ -1,0 +1,46 @@
+public class subtract2LL {
+   
+   public static Node reverseLL(Node head) { 
+      Node prev=null;
+      while(head!=null) {
+          Node nnext=head.next;
+          head.next=prev;
+          prev=head;
+          head=nnext;
+      }
+      return prev;
+   }
+   
+   public static Node insertAtBeg(int elt,Node head) { 
+      Node nnode=new Node(elt); 
+      if(head==null) {     
+          head=nnode;
+      }
+      else {
+          nnode.next=head; 
+          head=nnode;
+      }
+      return head;
+   }
+// considering 1st LL > 2nd LL
+   public static Node sub2LL(Node head1,Node head2) { 
+      if(head2==null) {return head1;}
+//    if(head1==null) {head2.val=-head2.val; return head2;} // (not possible because 1st LL > 2nd LL)
+      Node h1=reverseLL(head1);
+      Node h2=reverseLL(head2);
+      Node result=null;
+      int borrow=0;
+      while(h1!=null) { // not(h1!=null || h2!=null) as 1st LL > 2nd LL
+         int data=  borrow+h1.val-(h2!=null?h2.val:0);
+         if(data<0) {
+            borrow=-1;
+            data=data+10;
+         }
+         else {borrow=0;}
+         result=insertAtBeg(data,result);
+         h1=h1.next;
+         h2=h2!=null?h2.next:h2;
+      }
+      return result;
+   }
+}
