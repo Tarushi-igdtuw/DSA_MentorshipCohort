@@ -1,0 +1,30 @@
+public static Node segregate012(Node head) {    
+      if(head==null || head.next==null) {return head;}
+      Node zero=new Node(-1);
+      Node one=new Node(-1);
+      Node two=new Node(-1);
+      Node zeroT=zero,oneT=one,twoT=two;
+      Node curr=head;
+      while(curr!=null) {
+         if(curr.val==0) {
+            zeroT.next=curr;
+            zeroT=zeroT.next;
+         }
+         else if(curr.val==1) {
+            oneT.next=curr;
+            oneT=oneT.next;
+         }
+         else {
+            twoT.next=curr;
+            twoT=twoT.next;
+         }
+         curr=curr.next;
+      }
+      // here order of linking is very imp 
+      // because we also have to handle test case like 2->2->2-> also 
+      // otherwise the function will return null instead of 2->2->2->
+      oneT.next=two.next;
+      zeroT.next=one.next;
+      twoT.next=null;            // imp
+      return zero.next;
+}
