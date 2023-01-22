@@ -1,0 +1,12 @@
+public static dNode addFirstInDoublyList(int val,dNode head) {
+      dNode nnode=new dNode(val);
+      if(head==null) {
+         head=nnode;
+      }
+      else {
+         nnode.next=head;
+         head.prev=nnode;
+         head=nnode;
+      }
+      return head;
+}
