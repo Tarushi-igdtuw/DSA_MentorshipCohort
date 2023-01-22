@@ -1,0 +1,9 @@
+public static dNode removeLastInDoublyList(dNode head) {
+      if(head==null || head.next==null) {return null;}
+      dNode temp=head;
+      while(temp.next!=null) {
+         temp=temp.next;
+      }
+      temp.prev.next=null;
+      return head;
+}
