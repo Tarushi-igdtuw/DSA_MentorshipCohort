@@ -1,0 +1,21 @@
+public static dNode addEltAtIndex(dNode head,int index,int val) {
+      if(index<0 || index>getSize(head)) {return head;}
+      if(index==0) {
+        return addFirstInDoublyList(val,head);
+      }
+      else if(index==getSize(head)) {
+         return addLastInDoublyList(val,head);
+      }
+      else {
+         dNode nnode=new dNode(val);
+         dNode temp=head;
+         while(index-->0) {
+            temp=temp.next;
+         }
+         nnode.next=temp;
+         temp.prev.next=nnode;
+         nnode.prev=temp.prev;
+         temp.prev=nnode;
+         return head;
+      }  
+}
