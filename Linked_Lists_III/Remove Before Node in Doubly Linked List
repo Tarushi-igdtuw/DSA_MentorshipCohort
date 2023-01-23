@@ -1,0 +1,17 @@
+public static dNode removeBeforeNodeInDoublyList(dNode head,dNode refNode) {
+      if(refNode.prev==null) {
+         return head;
+      }
+      else {
+         dNode backward=refNode.prev;
+         if(backward.prev==null) {
+            head=head.next;
+            head.prev=null;
+         }
+         else {
+            backward.prev.next=refNode;
+            refNode.prev=backward.prev;
+         }
+         return head;
+      }
+}
