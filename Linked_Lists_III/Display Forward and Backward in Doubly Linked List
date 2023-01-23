@@ -1,0 +1,14 @@
+public static void displayDLLForwardBackward(dNode head) {
+      if(head==null) {return;}
+      dNode temp=head;
+      while(temp.next!=null) {              // forward
+         System.out.print(temp.val+"<->");
+         temp=temp.next;
+      }
+      System.out.print(temp.val);
+      System.out.println();
+      while(temp!=null) {                  // backward
+         System.out.print(temp.val+"<->");
+         temp=temp.prev;
+      }
+}
