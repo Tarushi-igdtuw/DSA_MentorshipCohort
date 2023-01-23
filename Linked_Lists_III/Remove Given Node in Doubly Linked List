@@ -1,0 +1,15 @@
+public static dNode deleteNodeInDoublyList(dNode head,dNode refNode) {
+      if(refNode==head) {
+         return removeFirstInDoublyList(head);
+      }
+      else if(refNode.next==null){
+         refNode.prev.next=null;
+      }
+      else {
+         dNode previous=refNode.prev;
+         dNode forward=refNode.next;
+         previous.next=forward;
+         forward.prev=previous;
+      }
+      return head;
+}
