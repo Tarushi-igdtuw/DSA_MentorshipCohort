@@ -1,0 +1,16 @@
+public static dNode addAfterNodeInDoublyList(dNode head,dNode refNode,int val) {
+      dNode nnode=new dNode(val);
+      if(refNode.next==null) {
+         refNode.next=nnode;
+         nnode.prev=refNode;
+         return head;
+      }
+      else {
+         dNode forward=refNode.next;
+         refNode.next=nnode;
+         nnode.prev=refNode;
+         nnode.next=forward;
+         forward.prev=nnode;
+         return head;
+      }
+}
