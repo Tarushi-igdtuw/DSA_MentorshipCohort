@@ -1,0 +1,18 @@
+public static dNode removeEltAtIndex(dNode head,int index) {
+      if(index<0 || index>=getSize(head)) {return head;}
+      if(index==0) {
+         return removeFirstInDoublyList(head);
+      }
+      else if(index==getSize(head)) {
+         return removeLastInDoublyList(head);
+      }
+      else {
+         dNode temp=head;
+         while(index-->0) {
+            temp=temp.next;
+         }
+         temp.prev.next=temp.next;
+         temp.next.prev=temp.prev;
+         return head;
+      }  
+}
