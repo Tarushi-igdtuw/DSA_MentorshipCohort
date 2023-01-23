@@ -1,0 +1,10 @@
+public static dNode removeAfterNodeInDoublyList(dNode head,dNode refNode) {
+      if(refNode.next!=null) {
+         dNode forward=refNode.next;
+         refNode.next=forward.next;
+         if(forward.next!=null) {
+            forward.next.prev=refNode;
+         }  
+      }
+      return head;
+}
