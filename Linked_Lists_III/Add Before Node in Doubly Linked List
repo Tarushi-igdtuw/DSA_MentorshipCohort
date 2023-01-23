@@ -1,0 +1,13 @@
+public static dNode addBeforeNodeInDoublyList(dNode head,dNode refNode,int val) {
+      if(head==refNode) {
+         return addFirstInDoublyList(val,head);
+      }
+      else {
+         dNode nnode=new dNode(val);
+         nnode.next=refNode;
+         refNode.prev.next=nnode;
+         nnode.prev=refNode.prev;
+         refNode.prev=nnode;
+         return head;  
+      }
+}
