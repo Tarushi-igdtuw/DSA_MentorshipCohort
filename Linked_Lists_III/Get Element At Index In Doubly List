@@ -1,0 +1,15 @@
+public static int getEltAtIndex(dNode head,int index) {
+      if(index<0) {return -1;}
+      int i=0;
+      dNode temp=head;
+      while(temp!=null && i!=index) {
+         temp=temp.next;
+         i++;
+      }
+      if(temp!=null) {
+         return temp.val;
+      }
+      else {
+         return -1;
+      }
+}
