@@ -1,0 +1,29 @@
+// pivot node is always the last index of linked list
+// After segregation the pivot element should be present at the correct position as in a sorted linked list 
+// return pivot node of LL
+public static Node segregateNodeofLinkedListOverlastIndex(Node head) {  
+      if(head==null || head.next==null) {return head;}
+      Node tail=head;
+      while(tail.next!=null) {
+         tail=tail.next;
+      }                          
+      Node s=new Node(-1);
+      Node st=s;
+      Node l=new Node(-1);
+      Node lt=l;
+      Node curr=head;
+      while(curr!=null) {
+         if(curr.val<=tail.val) {
+            st.next=curr;
+            st=st.next;
+         }
+         else {
+            lt.next=curr;
+            lt=lt.next;
+         }
+         curr=curr.next;
+      }
+      lt.next=null;
+      st.next=l.next;
+      return st;      
+}
