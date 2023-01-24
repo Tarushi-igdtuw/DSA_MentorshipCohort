@@ -1,0 +1,57 @@
+class Solution {
+    public static ListNode[] segregate(ListNode head,int index) {            
+      ListNode pivot=head;
+      while(index-->0) {
+         pivot=pivot.next;
+      }
+      ListNode s=new ListNode(-1);
+      ListNode st=s;
+      ListNode l=new ListNode(-1);
+      ListNode lt=l;
+      ListNode curr=head;
+      while(curr!=null) {
+         if(curr!=pivot) {
+            if(curr.val<=pivot.val) {
+               st.next=curr;
+               st=st.next;
+            }
+            else {
+               lt.next=curr;
+               lt=lt.next;
+            }
+         }
+         curr=curr.next;
+      }
+      st.next=lt.next=pivot.next=null;
+      return new ListNode[] {s.next,pivot,l.next};
+    }
+    public static ListNode merge(ListNode head1,ListNode pivot,ListNode head2) {
+      ListNode temp=head1;
+      if(temp!=null) {
+         while(temp.next!=null) {
+            temp=temp.next;
+         }
+         temp.next=pivot;
+      }
+      pivot.next=head2;
+      return temp==null?pivot:head1;
+    }
+    public static int getSize(ListNode head) { 
+      ListNode temp=head;
+      int size=0;
+      while(temp!=null) {
+         temp=temp.next;
+         size++;
+      }
+      return size;
+    }
+    public ListNode sortList(ListNode head) {
+        if(head==null || head.next==null) {return head;}
+        int length=getSize(head);
+        int pivotIndex=length/2;
+        ListNode[] arr=segregate(head,pivotIndex);  
+        ListNode a=sortList(arr[0]);
+        ListNode b=sortList(arr[2]);
+        return merge(a,arr[1],b);
+    } 
+}
