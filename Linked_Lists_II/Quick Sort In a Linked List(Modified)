@@ -1,0 +1,67 @@
+   public static Node[] segregate(Node head,int index) {            
+      Node pivot=head;
+      while(index-->0) {
+         pivot=pivot.next;
+      }
+      Node s=new Node(-1);
+      Node st=s;
+      Node l=new Node(-1);
+      Node lt=l;
+      Node curr=head;
+      while(curr!=null) {
+         if(curr!=pivot) {
+            if(curr.val<=pivot.val) {
+               st.next=curr;
+               st=st.next;
+            }
+            else {
+               lt.next=curr;
+               lt=lt.next;
+            }
+         }
+         curr=curr.next;
+      }
+      st.next=lt.next=pivot.next=null;
+      return new Node[] {s.next,pivot,l.next};
+   }
+   
+   public static Node[] merge(Node[] leftSortedList,Node pivot,Node[] rightSortedList) {
+      if(leftSortedList[0]==null) {                  
+         pivot.next=rightSortedList[0];
+         return new Node[] {pivot,rightSortedList[1]==null?pivot:rightSortedList[1]};
+      }
+      else {                                         
+         leftSortedList[1].next=pivot;
+         pivot.next=rightSortedList[0];
+         return new Node[] {leftSortedList[0],rightSortedList[1]==null?pivot:rightSortedList[1]};
+      }
+   }
+   
+   // {head,tail} return
+   public static Node[] quickSortLL(Node head){                          
+      if(head==null || head.next==null) {return new Node[] {head,head};}
+      int length=getSize(head);
+      int pivotIndex=length/2;
+      Node[] arr=segregate(head,pivotIndex);  
+      Node[] a=quickSortLL(arr[0]);
+      Node[] b=quickSortLL(arr[2]);
+      return merge(a,arr[1],b);
+   }
+   
+   public static int getSize(Node head) { // for size of LL
+      Node temp=head;
+      int size=0;
+      while(temp!=null) {
+         temp=temp.next;
+         size++;
+      }
+      return size;
+   }
+   
+   public static void printMyLL(Node[] ans) {
+      Node temp=ans[0];
+      while(temp!=null) {
+         System.out.print(temp.val+"<->");
+         temp=temp.next;
+      }
+   }
